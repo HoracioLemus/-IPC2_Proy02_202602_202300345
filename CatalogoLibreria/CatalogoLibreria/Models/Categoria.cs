@@ -41,15 +41,20 @@ public class Categoria
     public void AgregarSubcategoria(Categoria sub)
     {
         NodoCategoria nuevo = new NodoCategoria(sub);
-        if (primeraSubcategoria == null) 
+
+        if (primeraSubcategoria == null || string.Compare(sub.Nombre, primeraSubcategoria.Dato.Nombre) < 0)
         {
+            nuevo.Siguiente = primeraSubcategoria;
             primeraSubcategoria = nuevo;
             return;
         }
-
+        
+        //buscar posicion correcta recorriendo la lista
         NodoCategoria actual = primeraSubcategoria;
-        while (actual != null)
+        while (actual.Siguiente != null && string.Compare(actual.Siguiente.Dato.Nombre, sub.Nombre) < 0)
             actual = actual.Siguiente;
+
+        nuevo.Siguiente = actual.Siguiente;
         actual.Siguiente = nuevo;
     }
     

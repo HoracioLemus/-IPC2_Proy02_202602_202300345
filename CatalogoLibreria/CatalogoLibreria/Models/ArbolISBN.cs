@@ -86,4 +86,69 @@ public class ArbolISBN
             actual = actual.Derecha;
         return actual.Dato;
     }
+    
+    //Recorrido in-order
+    public void MostrarAscendente()
+    {
+        MostrarAscendenteRecursivo(raiz);
+    }
+
+    private void MostrarAscendenteRecursivo(NodoISBN nodo)
+    {
+        if (nodo == null)
+            return;
+        
+         
+        MostrarAscendenteRecursivo(nodo.Izquierda);
+        Console.WriteLine($"ISBN: {nodo.Dato.ISBN} - {nodo.Dato.Titulo}");
+        MostrarAscendenteRecursivo(nodo.Derecha);
+    }
+    
+    //Eliminar del BST
+    public void Eliminar(int isbn)
+    {
+        raiz = EliminarRecursivo(raiz, isbn);
+    }
+
+    private NodoISBN EliminarRecursivo(NodoISBN nodo, int isbn)
+    {
+        if (nodo == null)
+            return null;
+
+        if (isbn < nodo.Dato.ISBN)
+            nodo.Izquierda = EliminarRecursivo(nodo.Izquierda, isbn);
+        else if (isbn > nodo.Dato.ISBN)
+            nodo.Derecha = EliminarRecursivo(nodo.Derecha, isbn);
+        else
+        {
+            // Nodo a eliminar encontrado
+           //sin hijos
+           if (nodo.Izquierda == null && nodo.Derecha == null)
+               return null;
+           
+           //un solo hijo
+           if (nodo.Izquierda != null)
+               return nodo.Derecha;
+           if (nodo.Derecha == null)
+               return nodo.Izquierda;
+           
+           //dos hijos
+           NodoISBN sucesor = nodo.Derecha;
+           while (sucesor.Izquierda != null)
+               sucesor = sucesor.Izquierda;
+           
+           //Reemplazo y eliminar sucesor de posicion original
+           nodo.Dato = sucesor.Dato;
+           nodo.Derecha = EliminarRecursivo(nodo.Derecha, sucesor.Dato.ISBN);
+        }
+
+        return nodo;
+    }
+
+    private NodoISBN ObtenerSucesor(NodoISBN nodo)
+    {
+        while (nodo.Izquierda != null)
+            nodo = nodo.Izquierda;
+        return nodo;
+    }
 }
