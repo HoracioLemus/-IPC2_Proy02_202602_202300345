@@ -1,5 +1,5 @@
 namespace CatalogoLibreria.Models;
-
+using System.Text;
 public class NodoISBN
 {
     public Libro Dato;
@@ -150,5 +150,25 @@ public class ArbolISBN
         while (nodo.Izquierda != null)
             nodo = nodo.Izquierda;
         return nodo;
+    }
+    
+    //Texto para .dot
+    public string ObtenerNodosDot()
+    {
+        StringBuilder sb = new StringBuilder();
+        ObtenerNodosDotRecursivo(raiz, sb);
+        return sb.ToString();
+    }
+
+    private void ObtenerNodosDotRecursivo(NodoISBN nodo, StringBuilder sb)
+    {
+        if (nodo == null)
+        {
+            return;
+        }
+
+        ObtenerNodosDotRecursivo(nodo.Izquierda, sb);
+        sb.AppendLine($" \"{nodo.Dato.ISBN}\" [label=\"{nodo.Dato.Titulo}\\nISBN: {nodo.Dato.ISBN}\"];");
+        ObtenerNodosDotRecursivo(nodo.Derecha, sb);
     }
 }

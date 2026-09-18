@@ -117,4 +117,6 @@ public class Categoria
             nodoSub = nodoSub.Siguiente;
         }
     }
+    
+    
 }
