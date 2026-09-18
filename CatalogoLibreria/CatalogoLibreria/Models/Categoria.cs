@@ -69,11 +69,53 @@ public class Categoria
         }
 
         NodoLibroEnCategoria actual = primerLibro;
-        while (actual != null)
+        while (actual.Siguiente != null)
             actual = actual.Siguiente;
         actual.Siguiente = nuevo;
     }
 
     public NodoCategoria ObtenerSubcategorias() => primeraSubcategoria;
     public NodoLibroEnCategoria ObtenerLibros() => primerLibro;
+    
+    //Busqueda por Categoria
+    public Categoria BuscarCategoria(string nombre)
+    {
+        if (Nombre == nombre)
+            return this;
+
+        NodoCategoria actual = primeraSubcategoria;
+        while (actual != null)
+        {
+            Categoria resultado = actual.Dato.BuscarCategoria(nombre);
+            if (resultado != null)
+                return resultado;
+            actual = actual.Siguiente;
+        }
+        return null;
+    }
+    
+    //Mostrar en Jerarquia
+    public void MostrarJerarquia(int nivel = 0)
+    {
+        string sangria = new string('-', nivel * 2);
+        Console.WriteLine($"{sangria}{Nombre}");
+        
+        //Mostrar Categoria
+        NodoLibroEnCategoria nodoLibro = primerLibro;
+        while (nodoLibro != null)
+        {
+            Console.WriteLine($"{sangria} * {nodoLibro.Dato.Titulo} (ISBN: {nodoLibro.Dato.ISBN})");
+            nodoLibro = nodoLibro.Siguiente;
+        }
+        
+        //Mostrar subcategoria
+        NodoCategoria nodoSub = primeraSubcategoria;
+        while (nodoSub != null)
+        {
+            nodoSub.Dato.MostrarJerarquia(nivel + 1);
+            nodoSub = nodoSub.Siguiente;
+        }
+    }
+    
+    
 }
