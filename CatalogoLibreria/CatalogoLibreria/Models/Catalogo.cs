@@ -16,6 +16,12 @@ using System.Xml.Linq;
         //--Categorias--
         public void AgregarCategoria(string nombre, string nombrePadre)
         {
+            if (BuscarCategoria(nombre) != null)
+            {
+                Console.WriteLine($"Categoria '{nombre}' ya existe, se omite.");
+                return;
+            }
+            
             Categoria nueva = new Categoria(nombre);
 
             if (string.IsNullOrEmpty(nombrePadre))
@@ -23,14 +29,15 @@ using System.Xml.Linq;
                 raizCategorias.AgregarSubcategoria(nueva);
                 return;
             }
-            
+
             Categoria padre = raizCategorias.BuscarCategoria(nombrePadre);
-            if (padre != null)
+            if (padre!= null)
                 padre.AgregarSubcategoria(nueva);
             else
             {
                 Console.WriteLine($"Categoria padre '{nombrePadre}' no encontrada.");
             }
+            
         }
 
         public Categoria BuscarCategoria(string nombre)
@@ -51,6 +58,12 @@ using System.Xml.Linq;
         //--Libros--
         public void RegistrarLibro(int isbn, string titulo, string autor, string nombreCategoria)
         {
+            if (arbolLibros.Buscar(isbn) != null)
+            {
+                Console.WriteLine($"Libro con ISBN {isbn} ya existe, se omite.");
+                return;
+            }
+
             Categoria categoria = BuscarCategoria(nombreCategoria);
             if (categoria == null)
             {
