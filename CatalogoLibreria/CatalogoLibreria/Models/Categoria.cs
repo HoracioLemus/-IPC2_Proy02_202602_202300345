@@ -1,4 +1,5 @@
 namespace CatalogoLibreria.Models;
+
 //Nodo para subcategorias
 public class NodoCategoria
 {
@@ -116,6 +117,4 @@ public class Categoria
             nodoSub = nodoSub.Siguiente;
         }
     }
-    
-    
 }

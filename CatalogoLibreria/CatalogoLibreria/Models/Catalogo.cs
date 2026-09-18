@@ -1,4 +1,5 @@
 namespace CatalogoLibreria.Models;
+using System.Xml.Linq;
 
 //Catalogo
     public class Catalogo
@@ -67,4 +68,34 @@ namespace CatalogoLibreria.Models;
         public Libro ObtenerLibroMaximo() => arbolLibros.ObtenerMaximo();
         public void EliminarLibro(int isbn) => arbolLibros.Eliminar(isbn);
         public void MostrarLibrosAscendente() => arbolLibros.MostrarAscendente();
+        
+        public void CargarXml(string rutaArchivo)
+        {
+            XDocument doc = XDocument.Load(rutaArchivo);
+
+            XElement listaCategorias = doc.Root.Element("listaCategorias");
+            if (listaCategorias != null)
+            {
+                foreach (XElement categoriaElem in listaCategorias.Elements("categoria"))
+                {
+                    string nombre = categoriaElem.Value.Trim();
+                    string padre = categoriaElem.Attribute("padre")?.Value;
+                    AgregarCategoria(nombre, padre);
+                }
+            }
+
+            XElement listaLibros = doc.Root.Element("listaLibros");
+            if (listaLibros != null)
+            {
+                foreach (XElement libroElem in listaLibros.Elements("libro"))
+                {
+                    int isbn = int.Parse(libroElem.Element("ISBN").Value);
+                    string titulo = libroElem.Element("titulo").Value;
+                    string autor = libroElem.Element("autor").Value;
+                    string categoria = libroElem.Element("categoria").Value;
+
+                    RegistrarLibro(isbn, titulo, autor, categoria);
+                }
+            }
+        }
     }

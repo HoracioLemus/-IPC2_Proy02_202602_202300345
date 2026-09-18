@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+    <listaCategorias>
+        <categoria>Ficción</categoria>
+        <categoria>Novela</categoria>
+        <categoria padre="Ficción">Ciencia Ficción</categoria>
+    </listaCategorias>
+    <listaLibros>
+        <libro>
+            <ISBN>12345</ISBN>
+            <titulo>Your name</titulo>
+            <autor>Makoto Shinkai</autor>
+            <categoria>Ficción</categoria>
+        </libro>
+        <libro>
+            <ISBN>1234</ISBN>
+            <titulo>Vivarium: Ado and Me</titulo>
+            <autor>Narumi Komatsu</autor>
+            <categoria>Novela</categoria>
+        </libro>
+        <libro>
+            <ISBN>555</ISBN>
+            <titulo>El Hobbit</titulo>
+            <autor>J.R.R. Tolkien</autor>
+            <categoria>Ficción</categoria>
+        </libro>
+    </listaLibros>
+</config>
