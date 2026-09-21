@@ -18,4 +18,11 @@ public class CatalogoController : Controller
         ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
         return View();
     }
+
+    [HttpPost]
+    public IActionResult RegistrarLibro(int isbn, string titulo, string autor, string categoria)
+    {
+        _catalogo.RegistrarLibro(isbn, titulo, autor, categoria);
+        return RedirectToAction("Index");
+    }
 }
