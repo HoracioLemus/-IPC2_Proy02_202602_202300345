@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace CatalogoLibreria.Models;
 using System.Xml.Linq;
 
@@ -110,5 +112,19 @@ using System.Xml.Linq;
                     RegistrarLibro(isbn, titulo, autor, categoria);
                 }
             }
+        }
+        
+        //Mostrar HTML
+        public string GenerarHtmlJerarquiaCompleta()
+        {
+            StringBuilder sb = new StringBuilder();
+            NodoCategoria actual = raizCategorias.ObtenerSubcategorias();
+            while (actual !=null)
+            {
+                sb.Append(actual.Dato.GenerarHtmlJerarquia());
+                actual = actual.Siguiente;
+            }
+
+            return sb.ToString();
         }
     }

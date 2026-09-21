@@ -211,5 +211,30 @@ public class Categoria
 
         return rutaSalida;
     }
+    
+    //Mostrar en HTML
+    public string GenerarHtmlJerarquia(int nivel = 0)
+    {
+        StringBuilder sb = new StringBuilder();
+        string sangria = new string('-', nivel * 2);
+
+        sb.AppendLine($"<p style='margin-left:{nivel * 20}px'><strong>{sangria}{Nombre}</strong></p>");
+
+        NodoLibroEnCategoria nodoLibro = primerLibro;
+        while (nodoLibro != null)
+        {
+            sb.AppendLine($"<p style='margin-left:{(nivel + 1) * 20}px'>* {nodoLibro.Dato.Titulo} (ISBN: {nodoLibro.Dato.ISBN})</p>");
+            nodoLibro = nodoLibro.Siguiente;
+        }
+
+        NodoCategoria nodoSub = primeraSubcategoria;
+        while (nodoSub != null)
+        {
+            sb.Append(nodoSub.Dato.GenerarHtmlJerarquia(nivel + 1));
+            nodoSub = nodoSub.Siguiente;
+        }
+
+        return sb.ToString();
+    }
 
 }

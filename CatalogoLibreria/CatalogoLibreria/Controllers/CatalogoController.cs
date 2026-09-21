@@ -13,6 +13,9 @@ public class CatalogoController : Controller
 
     public IActionResult Index()
     {
+       
+
+        ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
         return View();
     }
 }
