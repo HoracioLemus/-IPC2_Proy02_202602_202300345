@@ -49,3 +49,34 @@
 {
     <img src="@ViewBag.RutaImagen" alt="Gráfico de categoria" />
 }
+
+<hr />
+<h2>Buscar libro por ISBN</h2>
+
+<form asp-action="BuscarPorIsbn" method="post">
+    <label>ISBN:</label>
+    <input type="number" name="isbn" requiered />
+    <button type="submit">Buscar</button>
+</form>
+
+@if (ViewBag.LibroEncontrado != null)
+{
+    var libro = ViewBag.LibroEncontrado as CatalogoLibreria.Models.Libro;
+    <p><strong>@libro.Titulo</strong> - @libro.Autor (ISBN: @libro.ISBN)</p>
+}
+else if (ViewBag.LibroEncontrado == null && Context.Request.Method == "POST" && Context.Request.Path.Value.Contains("BuscarPorIsbn"))
+{
+    <p>Libro no encontrado.</p>
+}
+
+<hr />
+<h2>Libro con menor y mayor ISBN</h2>
+<a asp-action="VerMinMax">Ver</a>
+
+@if (ViewBag.LibroMin != null)
+{
+    var min = ViewBag.LibroMin as CatalogoLibreria.Models.Libro;
+    var max = ViewBag.LibroMax as CatalogoLibreria.Models.Libro;
+    <p>Menor ISBN: <strong>@min.Titulo</strong> (ISBN: @min.ISBN)</p>
+    <p>Mayor ISBN: <strong>@max.Titulo</strong> (ISBN: @max.ISBN)</p>
+}

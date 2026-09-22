@@ -47,4 +47,21 @@ public class CatalogoController : Controller
         ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
         return View("Index");
     }
+
+    [HttpPost]
+    public IActionResult BuscarPorIsbn(int isbn)
+    {
+        Libro libro = _catalogo.BuscarLibro(isbn);
+        ViewBag.LibroEncontrado = libro;
+        ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
+        return View("Index");
+    }
+
+    public IActionResult VerMinMax()
+    {
+        ViewBag.LibroMin = _catalogo.ObtenerLibroMinimo();
+        ViewBag.LibroMax = _catalogo.ObtenerLibroMaximo();
+        ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
+        return View("Index");
+    }
 }
