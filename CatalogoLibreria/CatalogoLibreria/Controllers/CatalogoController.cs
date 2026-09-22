@@ -64,4 +64,11 @@ public class CatalogoController : Controller
         ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
         return View("Index");
     }
+
+    [HttpPost]
+    public IActionResult EliminarLibro(int isbn)
+    {
+        _catalogo.EliminarLibro(isbn);
+        return RedirectToAction("Index");
+    }
 }

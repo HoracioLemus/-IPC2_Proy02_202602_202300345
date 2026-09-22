@@ -81,7 +81,16 @@ using System.Xml.Linq;
         public Libro BuscarLibro(int isbn) => arbolLibros.Buscar(isbn);
         public Libro ObtenerLibroMinimo() => arbolLibros.ObtenerMinimo();
         public Libro ObtenerLibroMaximo() => arbolLibros.ObtenerMaximo();
-        public void EliminarLibro(int isbn) => arbolLibros.Eliminar(isbn);
+        public void EliminarLibro(int isbn)
+        {
+            Libro libro = arbolLibros.Buscar(isbn);
+            if (libro == null)
+            {
+                return;
+            }
+            libro.CategoriaAsociada.EliminarLibro(isbn);
+            arbolLibros.Eliminar(isbn);
+        } 
         public void MostrarLibrosAscendente() => arbolLibros.MostrarAscendente();
         
         public void CargarXml(string rutaArchivo)

@@ -237,4 +237,30 @@ public class Categoria
         return sb.ToString();
     }
 
+    public void EliminarLibro(int isbn)
+    {
+        if (primerLibro == null)
+        {
+            return;
+        }
+
+        if (primerLibro.Dato.ISBN == isbn)
+        {
+            primerLibro = primerLibro.Siguiente;
+            return;
+        }
+        
+        //Buscar el nodo anterior al que se debe eliminar
+        NodoLibroEnCategoria actual = primerLibro;
+        while (actual.Siguiente != null && actual.Siguiente.Dato.ISBN != isbn)
+        {
+            actual = actual.Siguiente;
+        }
+
+        if (actual.Siguiente != null)
+        {
+            actual.Siguiente = actual.Siguiente.Siguiente;
+        }
+    }
+
 }

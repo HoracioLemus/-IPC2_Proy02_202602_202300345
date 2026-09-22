@@ -80,3 +80,12 @@ else if (ViewBag.LibroEncontrado == null && Context.Request.Method == "POST" && 
     <p>Menor ISBN: <strong>@min.Titulo</strong> (ISBN: @min.ISBN)</p>
     <p>Mayor ISBN: <strong>@max.Titulo</strong> (ISBN: @max.ISBN)</p>
 }
+
+<hr />
+<h2>Eliminar libro</h2>
+
+<form asp-action="EliminarLibro" method="post">
+    <label>ISBN:</label>
+    <input type="number" name="isbn" required/>
+    <button type="submit">Eliminar</button>
+</form>
