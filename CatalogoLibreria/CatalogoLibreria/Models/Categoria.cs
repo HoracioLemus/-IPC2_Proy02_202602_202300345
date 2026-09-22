@@ -68,15 +68,18 @@ public class Categoria
     public void AgregarLibro(Libro libro)
     {
         NodoLibroEnCategoria nuevo = new NodoLibroEnCategoria(libro);
-        if (primerLibro == null)
+        if (primerLibro == null || libro.ISBN < primerLibro.Dato.ISBN)
         {
+            nuevo.Siguiente = primerLibro;
             primerLibro = nuevo;
             return;
         }
 
         NodoLibroEnCategoria actual = primerLibro;
-        while (actual.Siguiente != null)
+        while (actual.Siguiente != null && actual.Siguiente.Dato.ISBN < libro.ISBN)
             actual = actual.Siguiente;
+
+        nuevo.Siguiente = actual.Siguiente;
         actual.Siguiente = nuevo;
     }
 
@@ -131,52 +134,16 @@ public class Categoria
         sb.AppendLine("digraph Categoria {");
         sb.AppendLine("    node [shape=box];");
 
-        //Obtener Libros de la categotia en orden ascendente de ISBN
-        Libro[] libroOrdenados = ObtenerLibrosOrdenados();
-
-        foreach (Libro libro in ObtenerLibrosOrdenados())
+        NodoLibroEnCategoria nodoLibro = primerLibro;
+        while (nodoLibro != null)
         {
+            Libro libro = nodoLibro.Dato;
             sb.AppendLine($"     \"{libro.ISBN}\" [label=\"{libro.Titulo}\\nISBN: {libro.ISBN}\"];");
+            nodoLibro = nodoLibro.Siguiente;
         }
 
         sb.AppendLine("}");
         return sb.ToString();
-    }
-
-    //copia de los libros en la lista enlazada a un arreglo ordenado por ISBN
-    private Libro[] ObtenerLibrosOrdenados()
-    {
-        int cantidad = 0;
-        NodoLibroEnCategoria nodo = primerLibro;
-        while (nodo != null)
-        {
-            cantidad++;
-            nodo = nodo.Siguiente;
-        }
-
-        Libro[] libros = new Libro[cantidad];
-        nodo = primerLibro;
-        int i = 0;
-        while (nodo != null)
-        {
-            libros[i] = nodo.Dato;
-            i++;
-            nodo = nodo.Siguiente;
-        }
-
-        //Ordenar por ISBN
-        for (int a = 0; a < libros.Length - 1; a++)
-        {
-            for (int b = 0; b < libros.Length - 1 - a; b++)
-            {
-                if (libros[b].ISBN > libros[b + 1].ISBN)
-                {
-                    (libros[b], libros[b + 1]) = (libros[b + 1], libros[b]);
-                }
-            }
-        }
-
-        return libros;
     }
 
     public string GenerarImagen(string rutaSalida)

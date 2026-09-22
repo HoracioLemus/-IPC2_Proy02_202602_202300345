@@ -1,10 +1,25 @@
 using System.Text;
-using System.Linq;
 namespace CatalogoLibreria.Models;
 using System.Xml.Linq;
 
 public class Catalogo
 {
+    private class NodoCategoriaPendiente
+    {
+        public string Nombre;
+        public string Padre;
+        public NodoCategoriaPendiente Siguiente;
+        public Categoria CategoriaCreada;
+
+        public NodoCategoriaPendiente(string nombre, string padre)
+        {
+            Nombre = nombre;
+            Padre = padre;
+            Siguiente = null;
+            CategoriaCreada = null;
+        }
+    }
+
     private Categoria raizCategorias;
     private ArbolISBN arbolLibros;
 
@@ -56,63 +71,92 @@ public class Catalogo
     // Carga de categorias con linking diferido: primero crea todas, luego las conecta con su padre
     private void CargarCategoriasDiferido(XElement listaCategorias)
     {
-        var elementos = listaCategorias.Elements("categoria").ToArray();
-        int cantidad = elementos.Length;
+        NodoCategoriaPendiente primeraPendiente = null;
+        NodoCategoriaPendiente ultimaPendiente = null;
 
-        Categoria[] nuevas = new Categoria[cantidad];
-        string[] padres = new string[cantidad];
-
-        for (int i = 0; i < cantidad; i++)
+        foreach (XElement elemento in listaCategorias.Elements("categoria"))
         {
-            string nombre = elementos[i].Value.Trim();
-            string padre = elementos[i].Attribute("padre")?.Value;
+            string nombre = elemento.Value.Trim();
+            string padre = elemento.Attribute("padre")?.Value;
+            NodoCategoriaPendiente nuevo = new NodoCategoriaPendiente(nombre, padre);
 
-            bool yaExiste = BuscarCategoria(nombre) != null;
-            for (int j = 0; j < i && !yaExiste; j++)
+            if (primeraPendiente == null)
             {
-                if (nuevas[j] != null && nuevas[j].Nombre == nombre)
+                primeraPendiente = nuevo;
+                ultimaPendiente = nuevo;
+            }
+            else
+            {
+                ultimaPendiente.Siguiente = nuevo;
+                ultimaPendiente = nuevo;
+            }
+        }
+
+        NodoCategoriaPendiente actual = primeraPendiente;
+        while (actual != null)
+        {
+            bool yaExiste = BuscarCategoria(actual.Nombre) != null;
+            NodoCategoriaPendiente anterior = primeraPendiente;
+
+            while (anterior != actual && !yaExiste)
+            {
+                if (anterior.CategoriaCreada != null &&
+                    anterior.CategoriaCreada.Nombre == actual.Nombre)
+                {
                     yaExiste = true;
+                }
+
+                anterior = anterior.Siguiente;
             }
 
             if (yaExiste)
             {
-                Console.WriteLine($"Categoria '{nombre}' ya existe, se omite.");
-                continue;
+                Console.WriteLine($"Categoria '{actual.Nombre}' ya existe, se omite.");
+            }
+            else
+            {
+                actual.CategoriaCreada = new Categoria(actual.Nombre);
             }
 
-            nuevas[i] = new Categoria(nombre);
-            padres[i] = padre;
+            actual = actual.Siguiente;
         }
 
-        for (int i = 0; i < cantidad; i++)
+        actual = primeraPendiente;
+        while (actual != null)
         {
-            if (nuevas[i] == null)
-                continue;
-
-            if (string.IsNullOrEmpty(padres[i]))
+            if (actual.CategoriaCreada == null)
             {
-                raizCategorias.AgregarSubcategoria(nuevas[i]);
+                actual = actual.Siguiente;
                 continue;
             }
 
-            Categoria padreCat = BuscarCategoria(padres[i]);
-
-            if (padreCat == null)
+            if (string.IsNullOrEmpty(actual.Padre))
             {
-                for (int j = 0; j < cantidad; j++)
+                raizCategorias.AgregarSubcategoria(actual.CategoriaCreada);
+                actual = actual.Siguiente;
+                continue;
+            }
+
+            Categoria padreCat = BuscarCategoria(actual.Padre);
+            NodoCategoriaPendiente posiblePadre = primeraPendiente;
+
+            while (padreCat == null && posiblePadre != null)
+            {
+                if (posiblePadre.CategoriaCreada != null &&
+                    posiblePadre.CategoriaCreada.Nombre == actual.Padre)
                 {
-                    if (nuevas[j] != null && nuevas[j].Nombre == padres[i])
-                    {
-                        padreCat = nuevas[j];
-                        break;
-                    }
+                    padreCat = posiblePadre.CategoriaCreada;
                 }
+
+                posiblePadre = posiblePadre.Siguiente;
             }
 
             if (padreCat != null)
-                padreCat.AgregarSubcategoria(nuevas[i]);
+                padreCat.AgregarSubcategoria(actual.CategoriaCreada);
             else
-                Console.WriteLine($"Categoria padre '{padres[i]}' no encontrada.");
+                Console.WriteLine($"Categoria padre '{actual.Padre}' no encontrada.");
+
+            actual = actual.Siguiente;
         }
     }
 
