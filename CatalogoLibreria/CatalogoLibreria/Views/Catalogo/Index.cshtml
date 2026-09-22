@@ -30,3 +30,22 @@
     </div>
     <button type="submit">Registrar</button>
 </form>
+
+<hr />
+<h2>Ver Gráfico de una categoría</h2>
+
+<form asp-action="GenerarGrafico" method="post">
+    <label>Nombre de categoria:</label>
+    <input type="text" name="categoria" requiered />
+    <button type="submit">Generar Gráfico</button>
+</form>
+
+@if (ViewBag.ErrorGrafico != null)
+{
+    <p style="color:red">@ViewBag.ErrorGraphico</p>
+}
+
+@if (ViewBag.RutaImagen != null)
+{
+    <img src="@ViewBag.RutaImagen" alt="Gráfico de categoria" />
+}

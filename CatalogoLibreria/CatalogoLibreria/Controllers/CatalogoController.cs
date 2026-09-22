@@ -25,4 +25,26 @@ public class CatalogoController : Controller
         _catalogo.RegistrarLibro(isbn, titulo, autor, categoria);
         return RedirectToAction("Index");
     }
+
+    [HttpPost]
+    public IActionResult GenerarGrafico(string categoria)
+    {
+        Categoria cat = _catalogo.BuscarCategoria(categoria);
+        if (cat == null)
+        {
+            ViewBag.ErrorGrafico = $"Categoria '{categoria}' no encontrada.";
+            ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
+            return View("Index");
+        }
+
+        Directory.CreateDirectory("wwwroot/graphs");
+
+        string nombreArchivo = categoria.Replace(" ", "_") + ".png";
+        string rutaCompleta = "wwwroot/graphs/" + nombreArchivo;
+        cat.GenerarImagen(rutaCompleta);
+
+        ViewBag.RutaImagen = "/graphs/" + nombreArchivo + "?t=" + DateTime.Now.Ticks;
+        ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
+        return View("Index");
+    }
 }
