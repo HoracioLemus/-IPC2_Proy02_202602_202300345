@@ -89,3 +89,15 @@ else if (ViewBag.LibroEncontrado == null && Context.Request.Method == "POST" && 
     <input type="number" name="isbn" required/>
     <button type="submit">Eliminar</button>
 </form>
+
+<hr />
+<h2>Cargar Archivo XML</h2>
+<form asp-action="CargarXmlDesdeArchivo" method="post" enctype="multipart/form-data">
+    <input type="file" name="archivoXML" accept="*/*.xml" required />
+    <button type="submit">Cargar</button>
+</form>
+
+@if (ViewBag.ErrorCarga != null)
+{
+    <p style="color:red">@ViewBag.ErrorCarga</p>
+}

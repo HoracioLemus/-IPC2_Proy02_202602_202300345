@@ -71,4 +71,31 @@ public class CatalogoController : Controller
         _catalogo.EliminarLibro(isbn);
         return RedirectToAction("Index");
     }
+
+    public IActionResult Ayuda()
+    {
+        return View();
+    }
+    
+    [HttpPost]
+        public IActionResult CargarXmlDesdeArchivo(IFormFile archivoXml){
+            if (archivoXml == null || archivoXml.Length == 0)
+            {
+                ViewBag.ErrorCarga = "No se selecciono ningun archivo.";
+                ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
+                return View("Index");
+            }
+
+            string rutaTemporal = Path.Combine("Data", "subido_" + Guid.NewGuid() + ".xml");
+
+            using (var stream = new FileStream(rutaTemporal, FileMode.Create))
+            {
+                archivoXml.CopyTo(stream);
+            }
+
+            _catalogo.CargarXml(rutaTemporal);
+
+            ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
+            return View("Index");
+        }
 }
