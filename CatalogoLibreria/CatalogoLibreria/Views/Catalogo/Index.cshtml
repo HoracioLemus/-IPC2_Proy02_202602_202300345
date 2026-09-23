@@ -101,3 +101,14 @@ else if (ViewBag.LibroEncontrado == null && Context.Request.Method == "POST" && 
 {
     <p style="color:red">@ViewBag.ErrorCarga</p>
 }
+
+<hr />
+<h2>Agregar Categoria</h2>
+
+<form asp-action="AgregarCategoria" method="post">
+    <label>Nombre:</label>
+    <input type="text" name="nombre" requiered/>
+    <label>Padre (opcional):</label>
+    <input type="text" name="padre" />
+    <button type="submit">Agregar</button>
+</form>

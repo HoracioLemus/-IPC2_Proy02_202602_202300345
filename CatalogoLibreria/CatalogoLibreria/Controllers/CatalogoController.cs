@@ -98,4 +98,11 @@ public class CatalogoController : Controller
             ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
             return View("Index");
         }
+
+    [HttpPost]
+    public IActionResult AgregarCategoria(string nombre, string padre)
+    {
+        _catalogo.AgregarCategoria(nombre, padre);
+        return RedirectToAction("Index");
+    }
 }
