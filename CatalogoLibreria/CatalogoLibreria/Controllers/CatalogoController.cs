@@ -78,26 +78,28 @@ public class CatalogoController : Controller
     }
     
     [HttpPost]
-        public IActionResult CargarXmlDesdeArchivo(IFormFile archivoXml){
-            if (archivoXml == null || archivoXml.Length == 0)
-            {
-                ViewBag.ErrorCarga = "No se selecciono ningun archivo.";
-                ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
-                return View("Index");
-            }
-
-            string rutaTemporal = Path.Combine("Data", "subido_" + Guid.NewGuid() + ".xml");
-
-            using (var stream = new FileStream(rutaTemporal, FileMode.Create))
-            {
-                archivoXml.CopyTo(stream);
-            }
-
-            _catalogo.CargarXml(rutaTemporal);
-
+    public IActionResult CargarXmlDesdeArchivo(IFormFile archivoXml)
+    {
+        if (archivoXml == null || archivoXml.Length == 0)
+        {
+            ViewBag.ErrorCarga = "No se selecciono ningun archivo.";
             ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
             return View("Index");
         }
+
+        string rutaTemporal = Path.Combine("Data", "subido_" + Guid.NewGuid() + ".xml");
+
+        using (var stream = new FileStream(rutaTemporal, FileMode.Create))
+        {
+            archivoXml.CopyTo(stream);
+        }
+
+        _catalogo.CargarXml(rutaTemporal);
+
+        ViewBag.JerarquiaHtml = _catalogo.GenerarHtmlJerarquiaCompleta();
+        ViewBag.PestanaActiva = "#estructura";
+        return View("Index");
+    }
 
     [HttpPost]
     public IActionResult AgregarCategoria(string nombre, string padre)
