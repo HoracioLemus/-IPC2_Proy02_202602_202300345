@@ -1,0 +1,5 @@
+digraph Categoria {
+    node [shape=box];
+     "555" [label="El Hobbit\nISBN: 555"];
+     "12345" [label="Your name\nISBN: 12345"];
+}

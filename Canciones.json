@@ -1,0 +1,152 @@
+[
+  {
+    "titulo": "Blinding Lights",
+    "artista": "The Weeknd",
+    "genero": "Pop",
+    "duracion": "3:00"
+  },
+  {
+    "titulo": "Shape of You",
+    "artista": "Ed Sheeran",
+    "genero": "Pop",
+    "duracion": "3:00"
+  },
+  {
+    "titulo": "Billie Jean",
+    "artista": "Michael Jackson",
+    "genero": "Pop",
+    "duracion": "3:00"
+  },
+  {
+    "titulo": "Rolling in the Deep",
+    "artista": "Adele",
+    "genero": "Pop",
+    "duracion": "3:00"
+  },
+  {
+    "titulo": "Uptown Funk",
+    "artista": "Mark Ronson",
+    "genero": "Pop",
+    "duracion": "3:00"
+  },
+  {
+    "titulo": "Bohemian Rhapsody",
+    "artista": "Queen",
+    "genero": "Rock",
+    "duracion": "4:00"
+  },
+  {
+    "titulo": "Hotel California",
+    "artista": "Eagles",
+    "genero": "Rock",
+    "duracion": "4:00"
+  },
+  {
+    "titulo": "Sweet Child o' Mine",
+    "artista": "Guns N' Roses",
+    "genero": "Rock",
+    "duracion": "4:00"
+  },
+  {
+    "titulo": "Livin' on a Prayer",
+    "artista": "Bon Jovi",
+    "genero": "Rock",
+    "duracion": "4:00"
+  },
+  {
+    "titulo": "Another One Bites the Dust",
+    "artista": "Queen",
+    "genero": "Rock",
+    "duracion": "4:00"
+  },
+  {
+    "titulo": "Take Five",
+    "artista": "Dave Brubeck",
+    "genero": "Jazz",
+    "duracion": "5:00"
+  },
+  {
+    "titulo": "What a Wonderful World",
+    "artista": "Louis Armstrong",
+    "genero": "Jazz",
+    "duracion": "5:00"
+  },
+  {
+    "titulo": "My Favorite Things",
+    "artista": "John Coltrane",
+    "genero": "Jazz",
+    "duracion": "5:00"
+  },
+  {
+    "titulo": "So What",
+    "artista": "Miles Davis",
+    "genero": "Jazz",
+    "duracion": "5:00"
+  },
+  {
+    "titulo": "Feeling Good",
+    "artista": "Nina Simone",
+    "genero": "Jazz",
+    "duracion": "5:00"
+  },
+  {
+    "titulo": "Claro de Luna",
+    "artista": "Claude Debussy",
+    "genero": "Clásica",
+    "duracion": "8:00"
+  },
+  {
+    "titulo": "Para Elisa",
+    "artista": "Ludwig van Beethoven",
+    "genero": "Clásica",
+    "duracion": "8:00"
+  },
+  {
+    "titulo": "Nocturno Op. 9 No. 2",
+    "artista": "Frédéric Chopin",
+    "genero": "Clásica",
+    "duracion": "8:00"
+  },
+  {
+    "titulo": "Las Cuatro Estaciones",
+    "artista": "Antonio Vivaldi",
+    "genero": "Clásica",
+    "duracion": "8:00"
+  },
+  {
+    "titulo": "Sinfonía No. 5",
+    "artista": "Ludwig van Beethoven",
+    "genero": "Clásica",
+    "duracion": "8:00"
+  },
+  {
+    "titulo": "Havana",
+    "artista": "Camila Cabello",
+    "genero": "Pop",
+    "duracion": "3:00"
+  },
+  {
+    "titulo": "Poker Face",
+    "artista": "Lady Gaga",
+    "genero": "Pop",
+    "duracion": "3:00"
+  },
+  {
+    "titulo": "Imagine",
+    "artista": "John Lennon",
+    "genero": "Pop",
+    "duracion": "3:00"
+  },
+  {
+    "titulo": "Wonderwall",
+    "artista": "Oasis",
+    "genero": "Rock",
+    "duracion": "4:00"
+  },
+  {
+    "titulo": "Dream On",
+    "artista": "Aerosmith",
+    "genero": "Rock",
+    "duracion": "4:00"
+  }
+]

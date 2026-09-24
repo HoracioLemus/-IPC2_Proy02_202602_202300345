@@ -1,0 +1,4 @@
+digraph Categoria {
+    node [shape=box];
+     "1234" [label="Vivarium: Ado and Me\nISBN: 1234"];
+}

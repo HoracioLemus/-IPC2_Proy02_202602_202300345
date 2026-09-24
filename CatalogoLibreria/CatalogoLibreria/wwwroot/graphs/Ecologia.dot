@@ -1,0 +1,27 @@
+digraph Categoria {
+    node [shape=box];
+     "48395173" [label="Enigma de Zoologia\nISBN: 48395173"];
+     "178680581" [label="Introduccion a Educacion\nISBN: 178680581"];
+     "281237222" [label="El Aplicado Manual\nISBN: 281237222"];
+     "411988822" [label="Ensayo: Diccionario Elemental\nISBN: 411988822"];
+     "468798162" [label="Sombra de Comic\nISBN: 468798162"];
+     "504787412" [label="El Elemental Sombra\nISBN: 504787412"];
+     "614261146" [label="Fisica: Legado Definitivo\nISBN: 614261146"];
+     "852071689" [label="Cronicas de Arte\nISBN: 852071689"];
+     "1028448958" [label="Origen del Filosofia\nISBN: 1028448958"];
+     "1047126152" [label="Cronica del Programacion\nISBN: 1047126152"];
+     "1050973776" [label="El Avanzado Sombra\nISBN: 1050973776"];
+     "1110841094" [label="Psicologia: Sistema Elemental\nISBN: 1110841094"];
+     "1200382817" [label="El Moderno Diccionario\nISBN: 1200382817"];
+     "1216830813" [label="Derecho: Memoria Oculto\nISBN: 1216830813"];
+     "1305228841" [label="Introduccion a Fotografia\nISBN: 1305228841"];
+     "1338082247" [label="El Oculto Memoria\nISBN: 1338082247"];
+     "1393003123" [label="El Origen Nocturno de Algebra\nISBN: 1393003123"];
+     "1444884787" [label="El Metodo Definitivo de Psicologia\nISBN: 1444884787"];
+     "1452466196" [label="Introduccion a Cuento\nISBN: 1452466196"];
+     "1558956145" [label="La Silencioso Secreto\nISBN: 1558956145"];
+     "1673504902" [label="Introduccion a Literatura\nISBN: 1673504902"];
+     "1701287278" [label="Geometria: Compendio Silencioso\nISBN: 1701287278"];
+     "1733325340" [label="Cronicas de Biologia\nISBN: 1733325340"];
+     "1777803572" [label="El Moderno Atlas\nISBN: 1777803572"];
+}
